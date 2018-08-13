@@ -1,5 +1,8 @@
 {
 	"name":"akiyatkin/ydisk",
+	"autoload": {
+		"psr-4": { "akiyatkin\\ydisk\\": "" }
+	},
 	"require":{
 		"infrajs/config":"~1",
 		"infrajs/ans":"~1",
