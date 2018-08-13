@@ -1,0 +1,10 @@
+{
+	"name":"akiyatkin/ydisk",
+	"require":{
+		"infrajs/config":"~1",
+		"infrajs/ans":"~1",
+		"infrajs/once":"~1",
+		"infrajs/path":"~1",
+		"nixsolutions/yandex-php-library":"~3"
+	}
+}
