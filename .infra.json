@@ -1,4 +1,6 @@
 {
 	"require":"infra.php",
+	"conf":"akiyatkin\\ydisk\\Ydisk",
+	"checkaccess":false,
 	"key":"Надо указать ключ"
 }

@@ -5,17 +5,22 @@ use Yandex\Disk\DiskClient;
 use infrajs\once\Once;
 use infrajs\path\Path;
 use infrajs\config\Config;
+use infrajs\access\Access;
 
 class Ydisk {
+	public static $conf = array();
 	public static function client() {
 		return Once::func( function () {
-			$conf = Config::get('ydisk');
-			$diskClient = new DiskClient($conf['key']);
+			$diskClient = new DiskClient(Ydisk::$conf['key']);
 			$diskClient->setServiceScheme(DiskClient::HTTPS_SCHEME);
 			return $diskClient;
 		});
 	}
-	public static function sync($sdir, $ydir) {
+	/**
+	* Заменяем папку на сервере папокй на Яндекс Диск
+	*/
+	public static function replace($sdir, $ydir) {
+		Access::adminSetTime();
 		$newdir = Path::mkdir('~ydisktmp/');
 		$r = Ydisk::load('~ydisktmp/', $ydir); //Скачивает данные из Яндекс.Диска
 		if (!$r) die('Не удалось скачать данные из Яндекс.Диска');
