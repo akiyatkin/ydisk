@@ -9,6 +9,5 @@ if (!empty($conf['checkaccess'])) {
 }
 
 if (isset($_GET['-ydisk'])) {
-	Path::req('-ydisk/Ydisk.php');
 	Ydisk::replace('~pages/','/pages/');
 }

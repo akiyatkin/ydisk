@@ -17,7 +17,7 @@ class Ydisk {
 		});
 	}
 	/**
-	* Заменяем папку на сервере папокй на Яндекс Диск
+	* Заменяем папку на сервере папокой на Яндекс Диск
 	*/
 	public static function replace($sdir, $ydir) {
 		Access::adminSetTime();
