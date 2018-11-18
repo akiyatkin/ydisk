@@ -3,9 +3,9 @@ use akiyatkin\ydisk\Ydisk;
 use infrajs\path\Path;
 use infrajs\access\Access;
 
-$conf = Config::get('Ydisk');
+$conf = Ydisk::$conf;
 if (!empty($conf['checkaccess'])) {
-	Access::debug(true):	
+	Access::debug(true);
 }
 
 if (isset($_GET['-ydisk'])) {
