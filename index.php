@@ -6,9 +6,12 @@ use infrajs\access\Access;
 use akiyatkin\ydisk\Ydisk;
 use infrajs\rest\Rest;
 
+Access::debug(true);
 
 Rest::get( function () {
-	echo '<a href="?-ydisk=true">Загрузить даннные с Яндекс Диска</a>';
+	$ans = array('sync' => Ydisk::$conf['sync']);
+	$html = Rest::parse('-ydisk/layout.tpl',$ans);
+	echo $html;
 });
 
 
