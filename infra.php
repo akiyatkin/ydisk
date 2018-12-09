@@ -1,13 +1,20 @@
 <?php
 use akiyatkin\ydisk\Ydisk;
 use infrajs\path\Path;
+use infrajs\ans\Ans;
 use infrajs\access\Access;
 
 $conf = Ydisk::$conf;
 if (!empty($conf['checkaccess'])) {
 	Access::debug(true);
 }
-
-if (isset($_GET['-ydisk'])) {
-	Ydisk::replace('~pages/','/pages/');
+$name = Ans::get('-ydisk');
+if ($name === 'true') {
+	foreach ($conf['sync'] as $rule) {
+		Ydisk::replace($rule['site'],$rule['ysrc']);	
+	}
+}
+if (isset($conf['sync'][$name])) {
+	$rule = $conf['sync'][$name];
+	Ydisk::replace($rule['site'],$rule['ysrc']);	
 }

@@ -2,5 +2,11 @@
 	"require":"infra.php",
 	"conf":"akiyatkin\\ydisk\\Ydisk",
 	"checkaccess":false,
-	"key":"Надо указать ключ"
+	"key":"Надо указать ключ",
+	"sync":{
+		"pages": {
+			"ysrc":"/pages/",
+			"site":"~pages/"
+		}
+	}
 }

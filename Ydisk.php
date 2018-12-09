@@ -40,7 +40,7 @@ class Ydisk {
 		}
 	}
 	public static function load($sdir, $ydir) {
-		$gdir = Path::mkdir($sdir);
+		$gdir = Path::tofs(Path::mkdir($sdir));
 		$diskClient = Ydisk::client();
 
 
@@ -51,9 +51,10 @@ class Ydisk {
 		foreach ($dirContent as $dirItem) {
 			$name = $dirItem['displayName'];
 		    if ($dirItem['resourceType'] != 'dir') {
+		    	$diskClient->downloadFile($dirItem['href'], $gdir, Path::tofs($name));
 		    	
-		    	$diskClient->downloadFile($ydir.$name, $gdir, $name);
 		    } else {
+
 				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/');
 				if(!$r) return $r;
 		    }
