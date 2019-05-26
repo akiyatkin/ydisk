@@ -6,6 +6,7 @@ use infrajs\once\Once;
 use infrajs\path\Path;
 use infrajs\config\Config;
 use infrajs\access\Access;
+use akiyatkin\fs\FS;
 
 class Ydisk {
 	public static $conf = array();
@@ -22,7 +23,8 @@ class Ydisk {
 	public static function replace($sdir, $ydir) {
 		Access::adminSetTime();
 		$newdir = Path::mkdir('~ydisktmp/');
-		$r = Ydisk::load('~ydisktmp/', $ydir); //Скачивает данные из Яндекс.Диска
+		$r = Ydisk::load('~ydisktmp/', $ydir, $sdir); //Скачивает данные из Яндекс.Диска
+
 		if (!$r) die('Не удалось скачать данные из Яндекс.Диска');
 		
 		$rsdir = Path::theme($sdir);
@@ -39,21 +41,45 @@ class Ydisk {
 			if (!$r) die('Ydisk: не удалось удалить старую папку');
 		}
 	}
-	public static function load($sdir, $ydir) {
-
+	public static function load($sdir, $ydir, $sdirorig) {
+		
 		$gdir = Path::mkdir($sdir);
 		$diskClient = Ydisk::client();
-
 		// Получаем имена файлов в каталоге
+		
 		$dirContent = $diskClient->directoryContents($ydir);
 		unset($dirContent[0]);
-
 		foreach ($dirContent as $dirItem) {
 			$name = $dirItem['displayName'];
 		    if ($dirItem['resourceType'] != 'dir') {
-		    	$file = $diskClient->downloadFile($dirItem['href'], $gdir, Path::tofs($name));
+		    	//echo '<pre>';
+		    	//
+		    	$load = false;
+		    	if (!FS::is_file($sdirorig.$name)) $load = true;
+		    	else {
+		    		$stime = FS::filemtime($sdirorig.$name);
+		    		$ytime = strtotime($dirItem['lastModified']);	
+		    		//echo $sdirorig.$name.'<br>';
+		    		//echo 'Время сервера'.$stime.' '.date('j.m.Y H:i',$stime).'<br>';
+		    		//echo 'Время Яндекса'.$ytime.' '.date('j.m.Y H:i',$ytime).'<br>';
+		    		$load = $ytime > $stime;
+		    	}
+
+				//var_dump($load);
+		    	//echo $time.'<br>';
+		    	//print_r($dirItem);
+		    	if ($load) {
+		    		$diskClient->downloadFile($dirItem['href'], $gdir, Path::tofs($name));
+		    	} else{
+		    		FS::rename($sdirorig.$name, $gdir.$name);
+		    	}
+		    	
+		    	
+		    	
+				
 		    } else {
-				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/');
+		    	
+				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/', $sdirorig.$name.'/');
 				if (!$r) return $r;
 		    }
 		}
