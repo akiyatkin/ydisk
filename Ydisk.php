@@ -46,7 +46,6 @@ class Ydisk {
 		$gdir = Path::mkdir($sdir);
 		$diskClient = Ydisk::client();
 		// Получаем имена файлов в каталоге
-		
 		$dirContent = $diskClient->directoryContents($ydir);
 		unset($dirContent[0]);
 		foreach ($dirContent as $dirItem) {
@@ -78,7 +77,7 @@ class Ydisk {
 		    	
 				
 		    } else {
-		    	
+		    	sleep(1);
 				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/', $sdirorig.$name.'/');
 				if (!$r) return $r;
 		    }
