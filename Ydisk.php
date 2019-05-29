@@ -77,7 +77,7 @@ class Ydisk {
 		    	
 				
 		    } else {
-		    	sleep(0.1);
+		    	sleep(0.3);
 				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/', $sdirorig.$name.'/');
 				if (!$r) return $r;
 		    }
