@@ -77,7 +77,7 @@ class Ydisk {
 		    	
 				
 		    } else {
-		    	sleep(0.3);
+		    	usleep(200000);//1000000 - 1 сек - 6 нулей
 				$r = Ydisk::load($sdir.$name.'/', $ydir.$name.'/', $sdirorig.$name.'/');
 				if (!$r) return $r;
 		    }
