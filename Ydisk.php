@@ -54,15 +54,17 @@ class Ydisk {
 		    	//echo '<pre>';
 		    	//
 		    	$load = false;
-		    	if (!FS::is_file($sdirorig.$name)) $load = true;
-		    	else {
-		    		$stime = FS::filemtime($sdirorig.$name);
-		    		$ytime = strtotime($dirItem['lastModified']);	
-		    		//echo $sdirorig.$name.'<br>';
-		    		//echo 'Время сервера'.$stime.' '.date('j.m.Y H:i',$stime).'<br>';
-		    		//echo 'Время Яндекса'.$ytime.' '.date('j.m.Y H:i',$ytime).'<br>';
-		    		$load = $ytime > $stime;
-		    	}
+		    	if (!FS::is_file($gdir.$name)) {
+			    	if (!FS::is_file($sdirorig.$name)) $load = true;
+			    	else {
+			    		$stime = FS::filemtime($sdirorig.$name);
+			    		$ytime = strtotime($dirItem['lastModified']);	
+			    		//echo $sdirorig.$name.'<br>';
+			    		//echo 'Время сервера'.$stime.' '.date('j.m.Y H:i',$stime).'<br>';
+			    		//echo 'Время Яндекса'.$ytime.' '.date('j.m.Y H:i',$ytime).'<br>';
+			    		$load = $ytime > $stime;
+			    	}
+			    }
 
 				//var_dump($load);
 		    	//echo $time.'<br>';
