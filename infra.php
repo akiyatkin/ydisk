@@ -11,9 +11,7 @@ if (!empty($conf['checkaccess'])) {
 }
 $name = Ans::get('-ydisk');
 if ($name === 'true') {
-	foreach ($conf['sync'] as $rule) {
-		Ydisk::replace($rule['site'],$rule['ysrc']);	
-	}
+	Ydisk::replaceAll();
 }
 if (isset($conf['sync'][$name])) {
 	$rule = $conf['sync'][$name];

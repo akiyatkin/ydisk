@@ -17,6 +17,12 @@ class Ydisk {
 			return $diskClient;
 		});
 	}
+	public static function replaceAll() {
+		$conf = Ydisk::$conf;
+		foreach ($conf['sync'] as $rule) {
+			Ydisk::replace($rule['site'],$rule['ysrc']);	
+		}
+	}
 	/**
 	* Заменяем папку на сервере папокой на Яндекс Диск
 	*/
