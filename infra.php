@@ -19,5 +19,5 @@ if (isset($conf['sync'][$name])) {
 }
 if ($name) {
 	$path = explode('?',$_SERVER['REQUEST_URI'])[0];
-	header('Location: '.$path.'?-nostore=true');
+	//header('Location: '.$path.'?-nostore=true');
 }
