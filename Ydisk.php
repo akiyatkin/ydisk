@@ -2,7 +2,6 @@
 namespace akiyatkin\ydisk;
 use infrajs\ans\Ans;
 use Yandex\Disk\DiskClient;
-use infrajs\once\Once;
 use infrajs\path\Path;
 use infrajs\config\Config;
 use infrajs\access\Access;
@@ -10,12 +9,13 @@ use akiyatkin\fs\FS;
 
 class Ydisk {
 	public static $conf = array();
+	public static $once = array();
 	public static function client() {
-		return Once::func( function () {
-			$diskClient = new DiskClient(Ydisk::$conf['key']);
-			$diskClient->setServiceScheme(DiskClient::HTTPS_SCHEME);
-			return $diskClient;
-		});
+		$key = 'client:'.$m;
+		if (isset(Ydisk::$once[$key])) return Ydisk::$once[$key];
+		$diskClient = new DiskClient(Ydisk::$conf['key']);
+		$diskClient->setServiceScheme(DiskClient::HTTPS_SCHEME);
+		return Ydisk::$once[$key] = $diskClient;
 	}
 	public static function replaceAll() {
 		$conf = Ydisk::$conf;
