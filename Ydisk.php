@@ -11,7 +11,7 @@ class Ydisk {
 	public static $conf = array();
 	public static $once = array();
 	public static function client() {
-		$key = 'client:'.$m;
+		$key = 'client:';
 		if (isset(Ydisk::$once[$key])) return Ydisk::$once[$key];
 		$diskClient = new DiskClient(Ydisk::$conf['key']);
 		$diskClient->setServiceScheme(DiskClient::HTTPS_SCHEME);
