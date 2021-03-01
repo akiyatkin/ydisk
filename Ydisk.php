@@ -61,8 +61,12 @@ class Ydisk {
 		    	//
 		    	$load = false;
 		    	if (!FS::is_file($gdir.$name)) {
-			    	if (!FS::is_file($sdirorig.$name)) $load = true;
-			    	else {
+			    	if (
+			    		!FS::is_file($sdirorig.$name)
+			    		|| !FS::filesize($sdirorig.$name)
+			    	) {
+			    		$load = true;
+			    	} else {
 			    		$stime = FS::filemtime($sdirorig.$name);
 			    		$ytime = strtotime($dirItem['lastModified']);	
 			    		//echo $sdirorig.$name.'<br>';
