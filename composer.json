@@ -10,6 +10,6 @@
 		"akiyatkin/fs":"~1",
 		"infrajs/path":"~1",
 		"infrajs/rest":"~1",
-		"nixsolutions/yandex-php-library":"~3"
+		"slydeath/yandex-php-library":"~3"
 	}
 }
